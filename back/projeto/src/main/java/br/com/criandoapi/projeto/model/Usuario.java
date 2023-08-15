@@ -21,6 +21,18 @@ public class Usuario {
     private String telefone;
 
 
+    public Usuario() {
+    }
+
+    public Usuario(Integer id, String nome, String userName, String email, String senha, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.userName = userName;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+    }
+
     public Integer getId() {
         return id;
     }
