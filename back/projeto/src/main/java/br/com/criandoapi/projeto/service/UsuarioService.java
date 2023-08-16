@@ -3,6 +3,8 @@ package br.com.criandoapi.projeto.service;
 import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.repository.UsuarioDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +12,14 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
-    @Autowired
+
     private UsuarioDAO repository;
+    private PasswordEncoder passwordEncoder;
+
+    public UsuarioService(UsuarioDAO repository) {
+        this.repository = repository;
+        this.passwordEncoder = new BCryptPasswordEncoder();
+    }
 
     public List<Usuario> listarUsuario() {
         List<Usuario> lista = repository.findAll();
@@ -19,11 +27,15 @@ public class UsuarioService {
     }
 
     public Usuario criarUsuario(Usuario usuario) {
+        String encoder = this.passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(encoder);
         Usuario usuario1 = repository.save(usuario);
         return usuario1;
     }
 
     public Usuario editarUsuario(Usuario usuario) {
+        String encoder = this.passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(encoder);
         Usuario usuario1 = repository.save(usuario);
         return usuario1;
     }
@@ -33,5 +45,9 @@ public class UsuarioService {
         return true;
     }
 
-
+    public Boolean validarSenha(Usuario usuario) {
+        String senha = repository.getReferenceById(usuario.getId()).getSenha();
+        Boolean valid = passwordEncoder.matches(usuario.getSenha(), senha);
+        return valid;
+    }
 }
