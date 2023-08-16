@@ -12,7 +12,7 @@ public class Usuario {
     @Column(name = "nome_completo", length = 200, nullable = true)
     private String nome;
     @Column(name = "username", length = 100, nullable = true, unique = true)
-    private String userName;
+    private String username;
     @Column(name = "email", length = 50)
     private String email;
     @Column(name = "senha", columnDefinition = "TEXT", nullable = true)
@@ -24,10 +24,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Integer id, String nome, String userName, String email, String senha, String telefone) {
+    public Usuario(Integer id, String nome, String username, String email, String senha, String telefone) {
         this.id = id;
         this.nome = nome;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
@@ -73,11 +73,11 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
