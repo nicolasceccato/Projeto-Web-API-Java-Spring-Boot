@@ -1,10 +1,8 @@
 package br.com.criandoapi.projeto.controller;
 
-import br.com.criandoapi.projeto.repository.UsuarioDAO;
 import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.service.UsuarioService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
