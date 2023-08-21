@@ -73,4 +73,10 @@ public class UsuarioService {
         }
         return "Null";
     }
+
+    public Boolean login(Usuario user) {
+        String password = repository.getReferenceById(user.getId()).getSenha();
+
+        return user.getSenha().equals(password);
+    }
 }

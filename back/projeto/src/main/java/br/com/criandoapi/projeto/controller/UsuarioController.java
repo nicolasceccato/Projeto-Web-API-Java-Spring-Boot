@@ -5,6 +5,7 @@ import br.com.criandoapi.projeto.model.Usuario;
 import br.com.criandoapi.projeto.security.Token;
 import br.com.criandoapi.projeto.service.UsuarioService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,7 @@ import java.util.Map;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
+    @Autowired
     public UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
@@ -48,10 +50,11 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Token> logar(@Valid @RequestBody UsuarioDTO usuario) {
-        Token token = usuarioService.gerarToken(usuario);
-        if (token != null) {
-            return ResponseEntity.ok(token);
+    public ResponseEntity<UsuarioDTO> logar(@RequestBody UsuarioDTO usuario) {
+        Usuario usuario1 = new Usuario();
+        String pass = usuario1.getSenha();
+        if (usuarioService.login(usuario1)) {
+            return ResponseEntity.ok(usuario);
         }
         return ResponseEntity.status(403).build();
     }
@@ -59,8 +62,8 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, String> erros= new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((erro) ->{
+        Map<String, String> erros = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((erro) -> {
             String fieldName = ((FieldError) erro).getField();
             String errorMessage = erro.getDefaultMessage();
             erros.put(fieldName, errorMessage);
