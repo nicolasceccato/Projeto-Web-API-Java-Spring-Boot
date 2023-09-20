@@ -1,4 +1,4 @@
-# Projeto de Cadastro de Usuários com Spring Boot e JavaScript
+# Projeto Web API Java Spring Boot
 
 Este projeto consiste em uma aplicação de cadastro de usuários, onde foram utilizadas tecnologias tanto no backend quanto no frontend para o seu desenvolvimento.
 
